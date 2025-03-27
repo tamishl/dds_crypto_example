@@ -39,6 +39,18 @@
             android:name="nielsj.crypto.control.AsymmetricEncryptionControl"
             android:exported="false">
         </activity>
+        <activity
+            android:name="nielsj.crypto.control.RSAControl"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name="nielsj.crypto.control.DiffieHellmanControl"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name="nielsj.crypto.view.FormattingControl"
+            android:exported="false">
+        </activity>
 
     </application>
 

@@ -4,19 +4,28 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import nielsj.crypto.view.Hex;
+import nielsj.crypto.Crypto;
+import nielsj.crypto.view.*;
 
-public class AES implements SymmetricEncryption {
+public class AES {
+
+  public AES() {
+    // constructor for simple, ECB-based AES as in assignment #2
+    this("ECB","PKCS5Padding");
+  }
   public AES(String operation, String padding) {
+    // constructor for experimenting with AES
     this.operation = operation;
     String transformation = "AES/" + operation + "/" + padding;
     try {
-      cipher = Cipher.getInstance(transformation);
+      cipher = Cipher.getInstance(transformation, "BC");
     } catch (Exception e) {
       System.out.println("AES: cipher generation error");
       System.out.println(e);
     }
   }
+
+  // variables
 
   // The class Cipher instance does the actual encryption
   private Cipher cipher;
@@ -30,19 +39,11 @@ public class AES implements SymmetricEncryption {
 
   private String keyHexString = "000102030405060708090A0B0C0D0E0F";
 
-  public String getKey() {
-    return keyHexString;
-  }
 
   // In CBC operation mode, AES uses an iv
   private String ivHexString = "9F741FDB5D8845BDB48A94394E84F8A3";
 
-  public String getIV() {
-    return ivHexString;
-  }
-  public void  setIV(String iv) {
-    ivHexString = iv;
-  }
+
 
      /***********************
      * Encryption methods  *
@@ -54,7 +55,7 @@ public class AES implements SymmetricEncryption {
     SecretKeySpec key = generateKey(hexKey);
     byte[] cipherBytes = aesEncrypt(plainBytes, key);
     String ciphertext = Hex.byteArrayToHexString(cipherBytes);
-    String blocks = Hex.hexStringToMultiLine(ciphertext,32);
+    String blocks = Util.stringToMultiLine(ciphertext,32);
     // The following line is for experimenting
     // with *not* using hexes
     // blocks = new String(cipherBytes);
@@ -84,7 +85,7 @@ public class AES implements SymmetricEncryption {
 
   // decrypt() is a wrapper just like encrypt()
   public String decrypt(String ct, String keyString) {
-    String ciphertext = Hex.hexStringToSingleLine(ct);
+    String ciphertext = Util.stringToSingleLine(ct);
     byte[] cipherBytes = Hex.hexStringToByteArray(ciphertext);
     SecretKeySpec key = generateKey(keyString);
     byte[] plainBytes = aesDecrypt(cipherBytes, key);
@@ -129,10 +130,18 @@ public class AES implements SymmetricEncryption {
     return key;
   }
 
-  // listProvider() can be used to check
-  // whether the provider is actually BC / BouncyCastle
+  public String getKey() {
+    return keyHexString;
+  }
+  public String getIV() {
+    return ivHexString;
+  }
+  public void  setIV(String iv) {
+    ivHexString = iv;
+  }
 
   public String getProvider() {
-    return cipher.getProvider().getName();
+    return cipher.getProvider().toString();
   }
+
 }

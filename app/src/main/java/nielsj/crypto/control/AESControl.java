@@ -20,7 +20,7 @@ public class AESControl extends AppCompatActivity {
 
   // The crypto object does the cryptographic work
 
-  nielsj.crypto.model.AES crypto;
+  nielsj.crypto.model.AES aes;
 
   // Methods
 
@@ -34,25 +34,24 @@ public class AESControl extends AppCompatActivity {
     Intent intent = getIntent();
     String operation = intent.getStringExtra("operation");
     String padding = intent.getStringExtra("padding");
-    crypto = new AES(operation, padding);
-    String provider = crypto.getProvider();
+    aes = new AES(operation, padding);
     welcomeTextView = (TextView) findViewById(R.id.welcomeTextView);
-    welcomeTextView.setText("AES with " + operation + " and " + padding
-                            + "\nSecurity provider: " + provider);
+    welcomeTextView.setText("AES with " + operation + " and " + padding);
+    welcomeTextView.append("\n(security provider: " + aes.getProvider() + ")");
     ivEditText = (EditText) findViewById(R.id.ivEditText);
     switch (operation) {
       case "ECB":
         ivEditText.setText("(no iv)");
         break;
       case "CBC":
-        ivEditText.setText(crypto.getIV());
+        ivEditText.setText(aes.getIV());
         break;
       default:
         ivEditText.setText("??");
     }
     plaintextEditText = (EditText) findViewById(R.id.plaintextEditText);
     keyEditText = (EditText) findViewById(R.id.keyEditText);
-    keyEditText.setText(crypto.getKey());
+    keyEditText.setText(aes.getKey());
     encryptButton = (Button) findViewById(R.id.encryptButton);
     encryptButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
@@ -60,9 +59,9 @@ public class AESControl extends AppCompatActivity {
         String key = keyEditText.getText().toString();
         if (operation.equals("CBC")) {
           String iv = ivEditText.getText().toString();
-          crypto.setIV(iv);
+          aes.setIV(iv);
         }
-        String ct = crypto.encrypt(pt, key);
+        String ct = aes.encrypt(pt, key);
         encryptedEditText.setText(ct);
       }
     });
@@ -74,9 +73,9 @@ public class AESControl extends AppCompatActivity {
         String key = keyEditText.getText().toString();
         if (operation.equals("CBC")) {
           String iv = ivEditText.getText().toString();
-          crypto.setIV(iv);
+          aes.setIV(iv);
         }
-        String pt = crypto.decrypt(ct, key);
+        String pt = aes.decrypt(ct, key);
         decryptedTextView.setText(pt);
       }
     });

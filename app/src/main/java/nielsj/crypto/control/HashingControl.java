@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+
 import nielsj.crypto.R;
 import nielsj.crypto.model.*;
 
@@ -17,7 +18,7 @@ public class HashingControl extends AppCompatActivity {
   TextView welcomeTextView, hashvalueTextView;
   EditText inputEditText;
   Button hashButton;
-  SHA256 crypto;
+  SHA256 sha256;
 
   // Methods
 
@@ -28,17 +29,17 @@ public class HashingControl extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.hashing);
-    crypto = new SHA256();
+    sha256 = new SHA256();
     welcomeTextView = (TextView) findViewById(R.id.welcomeTextView);
-    String provider = crypto.getProvider();
-    welcomeTextView.append("\nSecurity provider: " + provider);
+    welcomeTextView.setText("Hashing (SHA 256)");
+    welcomeTextView.append("\n(security provider: " + sha256.getProvider() + ")");
     inputEditText = (EditText) findViewById(R.id.inputEditText);
     hashButton = (Button) findViewById(R.id.hashButton);
     hashvalueTextView = (TextView) findViewById(R.id.hashvalueTextView);
     hashButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
         String input = inputEditText.getText().toString();
-        String hashValue = crypto.hash(input);
+        String hashValue = sha256.hash(input);
         hashvalueTextView.setText(hashValue);
       }
     });

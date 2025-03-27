@@ -6,18 +6,21 @@ import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
-import nielsj.crypto.control.AsymmetricEncryptionControl;
-import nielsj.crypto.control.HashingControl;
-import nielsj.crypto.control.SymmetricEncryptionControl;
+import org.w3c.dom.Text;
+
+import nielsj.crypto.control.*;
+import nielsj.crypto.view.FormattingControl;
+
+// This is the top class/acticity
+// It defines buttons for selecting symmetric encryption, etc.
 
 public class Crypto extends AppCompatActivity {
 
-  // The attributes of this activity are the views
-  // and the welcome message to be displayet in the topmost TextView
-
-  Button symmetricEncryptionButton, hashingButton, asymmetricEncryptionButton;
-
-  // method onCreate() instantiates views based on XML file crypto.xml
+  // String provider is the default provider
+  // (to be used if provider BC/BouncyCastle does not work)
+  public final static String provider = "AndroidOpenSSL";
+  Button symmetricEncryptionButton, hashingButton,
+          asymmetricEncryptionButton, formattingButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,14 @@ public class Crypto extends AppCompatActivity {
       Intent i = new Intent(getApplicationContext(),
               AsymmetricEncryptionControl.class);
       startActivity(i);
+      }
+    });
+    formattingButton = (Button) findViewById(R.id.formattingButton);
+    formattingButton.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View v) {
+        Intent i = new Intent(getApplicationContext(),
+                FormattingControl.class);
+        startActivity(i);
       }
     });
   }

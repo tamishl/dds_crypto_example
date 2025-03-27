@@ -7,10 +7,11 @@
     android:columnCount="2"
     android:rowCount="5"
     android:useDefaultMargins="true"
-    tools:context="nielsj.crypto.control.CaesarControl">
+    tools:context="nielsj.crypto.view.FormattingControl">
 
     <TextView
         android:id="@+id/welcomeTextView"
+        android:text="Formatting"
         android:layout_row="0"
         android:layout_column="0"
         android:layout_columnSpan="2"
@@ -24,87 +25,70 @@
         android:textColor="#FFFFFF"></TextView>
 
     <TextView
-        android:id="@+id/keyTextView"
+        android:id="@+id/textGuide"
+        android:text="Type text:"
         android:layout_row="1"
         android:layout_column="0"
         android:textAllCaps="false"
         android:textSize="15sp"
-        android:textColor="#000000"
-        android:text="Please type key (0-25):">
-    </TextView>
+        android:textColor="#000000"></TextView>
 
     <EditText
-        android:id="@+id/keyEditText"
+        android:id="@+id/textEditText"
         android:layout_row="1"
         android:layout_column="1"
         android:textSize="15sp"
-        android:textColor="#992020"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        android:inputType="text"></EditText>
+        android:textColor="#000000"></EditText>
 
 
     <TextView
-        android:id="@+id/guideTextView"
+        android:id="@+id/guideBytes"
+        android:text="-> bytes\n(0..255)"
         android:layout_row="2"
         android:layout_column="0"
         android:textAllCaps="false"
         android:textSize="15sp"
+        android:textColor="#000000"></TextView>
+
+    <EditText
+        android:id="@+id/bytesEditText"
+        android:layout_row="2"
+        android:layout_column="1"
+        android:textSize="15sp"
+        android:textColor="#000000"></EditText>
+
+    <TextView
+        android:id="@+id/guideBits"
+        android:text="-> bits\n(00000000..\n..11111111)"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:textAllCaps="false"
         android:textColor="#000000"
-        android:text="Please type plaintext:">
-    </TextView>
+        android:textSize="15sp"></TextView>
 
     <EditText
-        android:id="@+id/plaintextEditText"
-        android:layout_row="2"
-        android:layout_column="1"
-        android:textSize="15sp"
-        android:textColor="#992020"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        android:inputType="text"></EditText>
-
-    <Button
-        android:id="@+id/encryptButton"
-        android:layout_row="3"
-        android:layout_column="0"
-        android:textAllCaps="false"
-        android:textSize="15sp"
-        android:text="Encrypt"></Button>
-
-    <EditText
-        android:id="@+id/encryptedEditText"
+        android:id="@+id/bitsEditText"
         android:layout_row="3"
         android:layout_column="1"
         android:textAllCaps="false"
         android:textSize="15sp"
-        android:textColor="#209920"
-        android:textStyle="bold"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:typeface="monospace"
-        android:inputType="textMultiLine"></EditText>
-
-    <Button
-        android:id="@+id/decryptButton"
-        android:layout_row="4"
-        android:layout_column="0"
-        android:textAllCaps="false"
-        android:textSize="15sp"
-        android:text="Decrypt"></Button>
+        android:textColor="#000000"></EditText>
 
     <TextView
-        android:id="@+id/decryptedTextView"
+        android:id="@+id/guideHexes"
+        android:text="-> hexes\n(00..FF)"
+        android:layout_row="4"
+        android:layout_column="0"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="15sp"></TextView>
+
+    <EditText
+        android:id="@+id/hexesEditText"
         android:layout_row="4"
         android:layout_column="1"
         android:textAllCaps="false"
         android:textSize="15sp"
-        android:textColor="#992020"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:inputType="textMultiLine">
-    </TextView>
+        android:textColor="#000000"></EditText>
 
 </GridLayout>

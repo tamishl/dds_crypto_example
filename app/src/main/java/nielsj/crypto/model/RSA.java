@@ -1,44 +1,54 @@
 package nielsj.crypto.model;
 
+import nielsj.crypto.Crypto;
+
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.math.BigInteger;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.Signature;
+import android.util.Log;
 
 import nielsj.crypto.view.Hex;
 
 public class RSA {
 
   public RSA() {
-    String provider = "BC";
     try {
-      signerVerifier = Signature.getInstance("SHA256withRSA", provider);
+      generator = KeyPairGenerator.getInstance("RSA", "BC");
+      generator.initialize(getKeySize());
+      // using default provider for signatures,
+      // since BC not working, probably related to SHA256 problem
+      signerVerifier = Signature.getInstance("SHA256withRSA", Crypto.provider);
     } catch (Exception e) {
-      System.out.println("RSA: signature getInstance() error");
+      System.out.println("RSA: error in constructor");
       System.out.println(e);
     }
-    try {
-      // Trusting the provider is important with key generation
-      generator = KeyPairGenerator.getInstance("RSA", provider);
-      generator.initialize(24);
-      // generator.initialize(32);
-    } catch (Exception e) {
-      System.out.println("RSA: keypair generator getInstance() error");
-      System.out.println(e);
-    }
-  }
-  public String getProvider() {
-    return generator.getProvider().getName();
   }
 
-  Signature signerVerifier;
+  // variables
+
+  // 24 bits is smallest keysize that will work with BC provider
+  // 512 bits is smallest keysize that allows for signing (SHA 256)
+  // 2048 bits is smallest keysize considered safe
+  private final int keysize = 24;
+
+  public int getKeySize() {
+    return keysize;
+  }
+  public String getProvider() {
+    return generator.getProvider().toString();
+  }
+
   KeyPairGenerator generator;
+  Signature signerVerifier;
 
   public BigInteger modulus, privateKeyExponent, publicKeyExponent;
   RSAPrivateKey privateKey;
   RSAPublicKey publicKey;
+
+  Log log;
 
   public void generateKeyPair() {
     KeyPair keyPair = null;
@@ -65,6 +75,7 @@ public class RSA {
     } catch (Exception e) {
       System.out.println("RSA: signing error");
       System.out.println(e);
+      log.e("rsa", e.toString());
       return "(error)";
     }
     String signature = Hex.byteArrayToHexString(output);

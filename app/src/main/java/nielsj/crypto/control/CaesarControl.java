@@ -1,6 +1,8 @@
 package nielsj.crypto.control;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +16,7 @@ import nielsj.crypto.model.*;
 public class CaesarControl extends AppCompatActivity {
 
   // Most attributes of this activity are the views
-  TextView welcomeTextView, keyTextView, guideTextView, decryptedTextView;
+  TextView welcomeTextView, decryptedTextView;
   Button encryptButton, decryptButton;
   EditText keyEditText, plaintextEditText, encryptedEditText;
 
@@ -33,25 +35,17 @@ public class CaesarControl extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.caesar);
-    String welcomeText = "Caesar encryption";
-    String keyText = "Please type key (0-25):";
-    String guideText = "Please type plaintext:";
-
     welcomeTextView = (TextView) findViewById(R.id.welcomeTextView);
-    welcomeTextView.setText(welcomeText);
-    keyTextView = (TextView) findViewById(R.id.keyTextView);
-    keyTextView.setText(keyText);
+    welcomeTextView.setText("Caesar");
     keyEditText = (EditText) findViewById(R.id.keyEditText);
     keyEditText.setText(caesar.getKey());
-    guideTextView = (TextView) findViewById(R.id.guideTextView);
-    guideTextView.setText(guideText);
     plaintextEditText = (EditText) findViewById(R.id.plaintextEditText);
     encryptButton = (Button) findViewById(R.id.encryptButton);
     encryptButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
+        updateKey();
         String pt = plaintextEditText.getText().toString();
-        String key = keyEditText.getText().toString();
-        String ct = caesar.encrypt(pt, key);
+        String ct = caesar.encrypt(pt);
         encryptedEditText.setText(ct);
       }
     });
@@ -59,13 +53,19 @@ public class CaesarControl extends AppCompatActivity {
     decryptButton = (Button) findViewById(R.id.decryptButton);
     decryptButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
+        updateKey();
         String ct = encryptedEditText.getText().toString();
-        String key = keyEditText.getText().toString();
-        String pt = caesar.decrypt(ct, key);
+        String pt = caesar.decrypt(ct);
         decryptedTextView.setText(pt);
       }
     });
     decryptedTextView = (TextView) findViewById(R.id.decryptedTextView);
+
+  }
+  private void updateKey(){
+    String keyString = keyEditText.getText().toString();
+    caesar.setKey(keyString);
+    keyEditText.setText(caesar.getKey());
   }
 
 
