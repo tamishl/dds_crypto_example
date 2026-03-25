@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:padding="5dp"
     android:background="#CFD4EC"
-    android:columnCount="2"
-    android:rowCount="12"
+    android:columnCount="3"
+    android:rowCount="13"
     android:useDefaultMargins="true"
     tools:context="nielsj.crypto.control.DiffieHellmanControl">
 
@@ -14,35 +14,91 @@
         android:id="@+id/welcomeTextView"
         android:layout_row="0"
         android:layout_column="0"
-        android:layout_columnSpan="2"
+        android:layout_columnSpan="3"
         android:textAllCaps="false"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:background="#42ADF5"
         android:layout_width="match_parent"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:textColor="#FFFFFF"></TextView>
-
-    <Button
-        android:id="@+id/generateParametersButton"
-        android:layout_row="1"
-        android:layout_column="0"
-        android:textAllCaps="false"
-        android:textSize="15sp"
-        android:text="Generate\ng, p"></Button>
-
-    <Button
-        android:id="@+id/generateSharedSecretButton"
-        android:layout_row="1"
-        android:layout_column="1"
-        android:textAllCaps="false"
-        android:textSize="15sp"
-        android:text="Generate\nshared secret"></Button>
 
     <TextView
         android:id="@+id/baseNameTextView"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:textAllCaps="false"
+        android:paddingLeft="5dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="1dp"
+        android:textSize="15sp"
+        android:textColor="#000000"
+        android:text="Keysize:">
+    </TextView>
+
+    <RadioGroup
+        android:id="@+id/keysizeRadioGroup"
+        android:layout_row="1"
+        android:layout_column="1"
+        android:layout_columnSpan="2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/b4RadioButton"
+            android:text="4"
+            android:checked="false"
+            android:textSize="15sp"></RadioButton>
+
+    <RadioButton
+        android:id="@+id/b256RadioButton"
+        android:text="256"
+        android:checked="true"
+        android:textSize="15sp"></RadioButton>
+
+    <RadioButton
+        android:id="@+id/b512RadioButton"
+        android:text="512"
+        android:checked="false"
+        android:textSize="15sp"></RadioButton>
+
+    <RadioButton
+        android:id="@+id/b1024RadioButton"
+        android:text="1024"
+        android:checked="false"
+        android:textSize="15sp"></RadioButton>
+
+        <RadioButton
+            android:id="@+id/b2048RadioButton"
+            android:text="2048"
+            android:checked="false"
+            android:textSize="15sp"></RadioButton>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/generateParametersButton"
         android:layout_row="2"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        android:text="Generate g, p"></Button>
+
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_row="2"
+        android:layout_column="2"
+        android:layout_columnSpan="1"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        android:text="Clear"></Button>
+
+    <TextView
+        android:id="@+id/baseNameTextView"
+        android:layout_row="3"
         android:layout_column="0"
         android:textAllCaps="false"
         android:textSize="15sp"
@@ -52,9 +108,9 @@
 
     <EditText
         android:id="@+id/baseValueEditText"
-        android:layout_row="2"
+        android:layout_row="3"
         android:layout_column="1"
-
+        android:layout_columnSpan="2"
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="#209920"
@@ -66,20 +122,21 @@
 
     <TextView
         android:id="@+id/modulusNameTextView"
-        android:layout_row="3"
+        android:layout_row="4"
         android:layout_column="0"
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="#000000"
         android:typeface="monospace"
         android:maxLines="1"
-        android:text="p (modulus):">
+        android:text="p (mod):">
     </TextView>
 
     <EditText
         android:id="@+id/modulusValueEditText"
-        android:layout_row="3"
+        android:layout_row="4"
         android:layout_column="1"
+        android:layout_columnSpan="2"
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="#209920"
@@ -91,30 +148,39 @@
 
     <Button
         android:id="@+id/generateAliceValuesButton"
-        android:layout_row="4"
+        android:layout_row="5"
         android:layout_column="0"
         android:layout_columnSpan="2"
         android:textAllCaps="false"
         android:textSize="15sp"
-        android:text="Generate Alice's values"></Button>
+        android:text="Generate A's values"></Button>
 
+    <Button
+        android:id="@+id/generateAliceSecretButton"
+        android:layout_row="5"
+        android:layout_column="2"
+        android:columnOrderPreserved="false"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        android:text="Generate A's secret"></Button>
 
     <TextView
         android:id="@+id/alicePrivateValueNameTextView"
-        android:layout_row="5"
+        android:layout_row="6"
         android:layout_column="0"
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="#000000"
         android:typeface="monospace"
         android:maxLines="1"
-        android:text="a:">
+        android:text="x:">
     </TextView>
 
     <EditText
         android:id="@+id/alicePrivateValueEditText"
-        android:layout_row="5"
+        android:layout_row="6"
         android:layout_column="1"
+        android:layout_columnSpan="2"
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="#992020"
@@ -126,20 +192,21 @@
 
     <TextView
         android:id="@+id/alicePublicValueNameTextView"
-        android:layout_row="6"
+        android:layout_row="7"
         android:layout_column="0"
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="#000000"
         android:typeface="monospace"
         android:maxLines="1"
-        android:text="g\u00ba mod p:">
+        android:text="g^x mod p:">
     </TextView>
 
     <EditText
         android:id="@+id/alicePublicValueEditText"
-        android:layout_row="6"
+        android:layout_row="7"
         android:layout_column="1"
+        android:layout_columnSpan="2"
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="#209920"
@@ -151,7 +218,7 @@
 
     <TextView
         android:id="@+id/aliceSecretTextView"
-        android:layout_row="7"
+        android:layout_row="8"
         android:layout_column="0"
         android:textAllCaps="false"
         android:textSize="15sp"
@@ -163,8 +230,9 @@
 
     <EditText
         android:id="@+id/aliceSecretValueEditText"
-        android:layout_row="7"
+        android:layout_row="8"
         android:layout_column="1"
+        android:layout_columnSpan="2"
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="#992020"
@@ -176,30 +244,38 @@
 
     <Button
         android:id="@+id/generateBobValuesButton"
-        android:layout_row="8"
+        android:layout_row="9"
         android:layout_column="0"
         android:layout_columnSpan="2"
         android:textAllCaps="false"
         android:textSize="15sp"
-        android:text="Generate Bob's values"></Button>
+        android:text="Generate B's values"></Button>
 
+    <Button
+        android:id="@+id/generateBobSecretButton"
+        android:layout_row="9"
+        android:layout_column="2"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        android:text="Generate B's secret"></Button>
 
     <TextView
         android:id="@+id/bobPrivateValueNameTextView"
-        android:layout_row="9"
+        android:layout_row="10"
         android:layout_column="0"
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="#000000"
         android:typeface="monospace"
         android:maxLines="1"
-        android:text="b:">
+        android:text="y:">
     </TextView>
 
     <EditText
         android:id="@+id/bobPrivateValueEditText"
-        android:layout_row="9"
+        android:layout_row="10"
         android:layout_column="1"
+        android:layout_columnSpan="2"
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="#992020"
@@ -211,20 +287,21 @@
 
     <TextView
         android:id="@+id/bobPublicValueNameTextView"
-        android:layout_row="10"
+        android:layout_row="11"
         android:layout_column="0"
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="#000000"
         android:typeface="monospace"
         android:maxLines="1"
-        android:text="g\u00bb mod p:">
+        android:text="g^y mod p:">
     </TextView>
 
     <EditText
         android:id="@+id/bobPublicValueEditText"
-        android:layout_row="10"
+        android:layout_row="11"
         android:layout_column="1"
+        android:layout_columnSpan="2"
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="#209920"
@@ -236,7 +313,7 @@
 
     <TextView
         android:id="@+id/bobSecretTextView"
-        android:layout_row="11"
+        android:layout_row="12"
         android:layout_column="0"
         android:textAllCaps="false"
         android:textSize="15sp"
@@ -248,8 +325,9 @@
 
     <EditText
         android:id="@+id/bobSecretValueEditText"
-        android:layout_row="11"
+        android:layout_row="12"
         android:layout_column="1"
+        android:layout_columnSpan="2"
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="#992020"

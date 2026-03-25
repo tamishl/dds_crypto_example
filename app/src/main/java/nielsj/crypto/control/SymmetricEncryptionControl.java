@@ -2,10 +2,8 @@ package nielsj.crypto.control;
 
 import android.os.Bundle;
 import android.view.View;
-import android.content.Intent;
 import android.widget.Button;
-import android.widget.RadioButton;
-
+import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import nielsj.crypto.R;
 
@@ -17,8 +15,7 @@ public class SymmetricEncryptionControl extends AppCompatActivity {
 
   // The attributes of this activity are the views and buttons
   Button caesarButton, aesButton;
-  RadioButton ecbRadioButton, cbcRadioButton,
-          noPaddingRadioButton, paddingRadioButton;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -35,29 +32,12 @@ public class SymmetricEncryptionControl extends AppCompatActivity {
       }
     });
 
-    // The AES button with parameter passing to class AESControl
+    // The AES button
     aesButton = (Button) findViewById(R.id.aesButton);
-    ecbRadioButton = (RadioButton) findViewById(R.id.ecbRadioButton);
-    cbcRadioButton = (RadioButton) findViewById(R.id.cbcRadioButton);
-    noPaddingRadioButton = (RadioButton) findViewById(R.id.noPaddingRadioButton);
-    paddingRadioButton = (RadioButton) findViewById(R.id.paddingRadioButton);
     aesButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
         Intent i = new Intent(getApplicationContext(),
                           AESControl.class);
-        String operation = "";
-        if (ecbRadioButton.isChecked())
-          operation = "ECB";
-        if (cbcRadioButton.isChecked())
-          operation = "CBC";
-        i.putExtra("operation", operation);
-        String padding = "";
-        if (noPaddingRadioButton.isChecked())
-          padding = "NoPadding";
-        if (paddingRadioButton.isChecked())
-          padding = "PKCS5Padding";
-        i.putExtra("padding", padding);
-        String keyformat = "";
         startActivity(i);
       }
     });

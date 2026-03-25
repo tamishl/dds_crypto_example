@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CFD4EC"
+    android:rowCount="6"
     android:columnCount="2"
-    android:rowCount="5"
     android:useDefaultMargins="true"
-    tools:context="nielsj.crypto.view.FormattingControl">
+    tools:context="nielsj.assignment3.Assignment3">
 
     <TextView
         android:id="@+id/welcomeTextView"
-        android:text="Formatting"
+        android:text="Welcome to the SHA256 cracker"
         android:layout_row="0"
         android:layout_column="0"
         android:layout_columnSpan="2"
@@ -24,73 +24,62 @@
         android:paddingBottom="10dp"
         android:textColor="#FFFFFF"></TextView>
 
-
     <TextView
-        android:id="@+id/guideBytes"
-        android:text="Type bytes\n(-128..127)"
+        android:id="@+id/guideTextView"
+        android:text="Type desired hashvalue beginning in hex (0..9, A..F):"
         android:layout_row="1"
         android:layout_column="0"
+        android:layout_columnSpan="2"
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="#000000"></TextView>
 
     <EditText
-        android:id="@+id/bytesEditText"
-        android:layout_row="1"
-        android:layout_column="1"
-        android:textSize="15sp"
-        android:textColor="#000000"></EditText>
-
-    <TextView
-        android:id="@+id/guideASCII"
-        android:text="-> ASCII chars\n(!#$..012..\nABC..xyz)"
+        android:id="@+id/hashBeginningEditText"
         android:layout_row="2"
         android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:textSize="15sp"
+        android:textColor="#000000"
+        android:typeface="monospace"
+        android:inputType="text"></EditText>
+
+    <Button
+        android:id="@+id/crackButton"
+        android:text="Crack"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:textSize="15sp"> </Button>
+
+    <Button
+        android:id="@+id/clearButton"
+        android:text="Clear"
+        android:layout_row="3"
+        android:layout_column="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:textSize="15sp"> </Button>
+
+    <TextView
+        android:id="@+id/hashInputTextView"
+        android:text="(hash input)"
+        android:layout_row="4"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="#000000"></TextView>
-
-    <EditText
-        android:id="@+id/asciiEditText"
-        android:layout_row="2"
-        android:layout_column="1"
-        android:textSize="15sp"
-        android:textColor="#000000"></EditText>
-
-
-
     <TextView
-        android:id="@+id/guideBits"
-        android:text="-> bits\n(00000000..\n..11111111)"
-        android:layout_row="3"
+        android:id="@+id/hashValueTextView"
+        android:text="(hash value)"
+        android:layout_row="5"
         android:layout_column="0"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textSize="15sp"></TextView>
-
-    <EditText
-        android:id="@+id/bitsEditText"
-        android:layout_row="3"
-        android:layout_column="1"
+        android:layout_columnSpan="2"
         android:textAllCaps="false"
         android:textSize="15sp"
-        android:textColor="#000000"></EditText>
-
-    <TextView
-        android:id="@+id/guideHexes"
-        android:text="-> hexes\n(00..FF)"
-        android:layout_row="4"
-        android:layout_column="0"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textSize="15sp"></TextView>
-
-    <EditText
-        android:id="@+id/hexesEditText"
-        android:layout_row="4"
-        android:layout_column="1"
-        android:textAllCaps="false"
-        android:textSize="15sp"
-        android:textColor="#000000"></EditText>
-
+        android:textColor="#000000"></TextView>
 </GridLayout>

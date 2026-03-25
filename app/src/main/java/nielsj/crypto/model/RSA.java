@@ -32,7 +32,7 @@ public class RSA {
   // 24 bits is smallest keysize that will work with BC provider
   // 512 bits is smallest keysize that allows for signing (SHA 256)
   // 2048 bits is smallest keysize considered safe
-  private final int keysize = 24;
+  private final int keysize = 2048;
 
   public int getKeySize() {
     return keysize;

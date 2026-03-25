@@ -5,22 +5,25 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import nielsj.crypto.R;
 import nielsj.crypto.model.*;
 
-
-// class AESUI is the user interface to AES encryption 
+// class AESControl is the user interface to AES encryption
 
 public class AESControl extends AppCompatActivity {
   TextView welcomeTextView, decryptedTextView;
+  RadioGroup paddingRadioGroup, modeRadioGroup;
+  RadioButton ecbRadioButton, cbcRadioButton,
+              noPaddingRadioButton, paddingRadioButton;
   Button encryptButton, decryptButton;
   EditText keyEditText, ivEditText, plaintextEditText, encryptedEditText;
 
-  // The crypto object does the cryptographic work
-
-  nielsj.crypto.model.AES aes;
+  // The AES object does the cryptographic work
+  AES aes;
 
   // Methods
 
@@ -31,33 +34,39 @@ public class AESControl extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.aes);
-    Intent intent = getIntent();
-    String operation = intent.getStringExtra("operation");
-    String padding = intent.getStringExtra("padding");
-    aes = new AES(operation, padding);
     welcomeTextView = (TextView) findViewById(R.id.welcomeTextView);
-    welcomeTextView.setText("AES with " + operation + " and " + padding);
-    welcomeTextView.append("\n(security provider: " + aes.getProvider() + ")");
+    ecbRadioButton = (RadioButton) findViewById(R.id.ecbRadioButton);
+    cbcRadioButton = (RadioButton) findViewById(R.id.cbcRadioButton);
+    noPaddingRadioButton = (RadioButton) findViewById(R.id.noPaddingRadioButton);
+    paddingRadioButton = (RadioButton) findViewById(R.id.paddingRadioButton);
     ivEditText = (EditText) findViewById(R.id.ivEditText);
-    switch (operation) {
-      case "ECB":
-        ivEditText.setText("(no iv)");
-        break;
-      case "CBC":
-        ivEditText.setText(aes.getIV());
-        break;
-      default:
-        ivEditText.setText("??");
-    }
+    aes = initAES(welcomeTextView, ivEditText);
+    modeRadioGroup = (RadioGroup) findViewById(R.id.modeRadioGroup);
+    paddingRadioGroup = (RadioGroup) findViewById(R.id.paddingRadioGroup);
+    modeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(RadioGroup g, int checkedId) {
+        // RadioButton checkedRadioButton = (RadioButton) findViewById(checkedId);
+        aes = initAES(welcomeTextView, ivEditText);
+      }
+    });
+    paddingRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(RadioGroup g, int checkedId) {
+        // RadioButton checkedRadioButton = (RadioButton) findViewById(checkedId);
+        aes = initAES(welcomeTextView, ivEditText);
+      }
+    });
     plaintextEditText = (EditText) findViewById(R.id.plaintextEditText);
     keyEditText = (EditText) findViewById(R.id.keyEditText);
     keyEditText.setText(aes.getKey());
     encryptButton = (Button) findViewById(R.id.encryptButton);
+    encryptedEditText = (EditText) findViewById(R.id.encryptedEditText);
     encryptButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
         String pt = plaintextEditText.getText().toString();
         String key = keyEditText.getText().toString();
-        if (operation.equals("CBC")) {
+        if (aes.getOperation().equals("CBC")) {
           String iv = ivEditText.getText().toString();
           aes.setIV(iv);
         }
@@ -65,13 +74,14 @@ public class AESControl extends AppCompatActivity {
         encryptedEditText.setText(ct);
       }
     });
-    encryptedEditText = (EditText) findViewById(R.id.encryptedEditText);
+
     decryptButton = (Button) findViewById(R.id.decryptButton);
+    decryptedTextView = (TextView) findViewById(R.id.decryptedTextView);
     decryptButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
         String ct = encryptedEditText.getText().toString();
         String key = keyEditText.getText().toString();
-        if (operation.equals("CBC")) {
+        if (aes.getOperation().equals("CBC")) {
           String iv = ivEditText.getText().toString();
           aes.setIV(iv);
         }
@@ -79,6 +89,26 @@ public class AESControl extends AppCompatActivity {
         decryptedTextView.setText(pt);
       }
     });
-    decryptedTextView = (TextView) findViewById(R.id.decryptedTextView);
+  }
+  AES initAES(TextView welcomeTextView, EditText ivEditText) {
+    AES aes;
+    String operation = "";
+    if (ecbRadioButton.isChecked()) {
+      operation = "ECB";
+      ivEditText.setText("(no iv)");
+    }
+    if (cbcRadioButton.isChecked()) {
+      operation = "CBC";
+      ivEditText.setText(AES.getIV());
+    }
+    String padding = "";
+    if (noPaddingRadioButton.isChecked())
+      padding = "NoPadding";
+    if (paddingRadioButton.isChecked())
+      padding = "PKCS5Padding";
+    welcomeTextView.setText("AES with " + operation + " and " + padding);
+    aes = new AES(operation, padding);
+    welcomeTextView.append("\n(security provider: " + aes.getProvider() + ")");
+    return aes;
   }
 }

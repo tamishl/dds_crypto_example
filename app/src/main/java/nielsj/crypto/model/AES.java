@@ -30,18 +30,18 @@ public class AES {
   // The class Cipher instance does the actual encryption
   private Cipher cipher;
 
-  private String operation; // will be set to "ECB" or "CBC"
+  private static String operation; // will be set to "ECB" or "CBC"
 
   // The encryption key.
   // Variable keyHexString is printed on the Android's screen.
   // Then from the screen it is passed to encrypt()
   // (possibly after modification)
 
-  private String keyHexString = "000102030405060708090A0B0C0D0E0F";
+  private static String keyHexString = "000102030405060708090A0B0C0D0E0F";
 
 
   // In CBC operation mode, AES uses an iv
-  private String ivHexString = "9F741FDB5D8845BDB48A94394E84F8A3";
+  private static String ivHexString = "9F741FDB5D8845BDB48A94394E84F8A3";
 
 
 
@@ -130,13 +130,14 @@ public class AES {
     return key;
   }
 
-  public String getKey() {
+  public static String getKey() {
     return keyHexString;
   }
-  public String getIV() {
+  public static String getIV() {
     return ivHexString;
   }
-  public void  setIV(String iv) {
+  public static String getOperation() {return operation; }
+  public static void setIV(String iv) {
     ivHexString = iv;
   }
 

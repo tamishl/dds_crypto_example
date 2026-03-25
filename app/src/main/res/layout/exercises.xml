@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:background="#CFD4EC"
     android:columnCount="2"
-    android:rowCount="4"
+    android:rowCount="5"
     android:useDefaultMargins="true"
     tools:context="nielsj.crypto.control.SymmetricEncryptionControl">
 
     <TextView
         android:id="@+id/welcomeTextView"
-        android:text="Symmetric encryption"
+        android:text="Exercises"
         android:layout_row="0"
         android:layout_column="0"
         android:layout_columnSpan="2"
@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/guideTextView"
-        android:text="Please select a symmetric algorithm"
+        android:text="Please select an exercise"
         android:layout_row="1"
         android:layout_column="0"
         android:layout_columnSpan="2"
@@ -37,20 +37,27 @@
         android:textColor="#000000"></TextView>
 
     <Button
-        android:id="@+id/caesarButton"
-        android:text="Caesar"
+        android:id="@+id/caesarCrackerButton"
+        android:text="CaesarCracker"
         android:layout_row="2"
         android:layout_column="0"
         android:textAllCaps="false"
         android:textSize="15sp"></Button>
 
     <Button
-        android:id="@+id/aesButton"
-        android:text="AES"
+        android:id="@+id/aesCrackerButton"
+        android:text="AESCracker"
         android:layout_row="3"
         android:layout_column="0"
         android:textAllCaps="false"
         android:textSize="15sp"></Button>
 
+    <Button
+        android:id="@+id/sha256CrackerButton"
+        android:text="SHA256Cracker"
+        android:layout_row="4"
+        android:layout_column="0"
+        android:textAllCaps="false"
+        android:textSize="15sp"></Button>
 
 </GridLayout>

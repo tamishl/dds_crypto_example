@@ -58,12 +58,11 @@ public class Util {
     StringBuffer sb = new StringBuffer("");
     for (int i = 0;i < byteArray.length; i++) {
       byte b = byteArray[i];
-      String bs = Integer.toBinaryString(b + 256);
-      // String bs is 9 bit string with leftmost bit = 1 (for 256)
-      String is8 = bs.substring(1, 9);
-      // is8 is rightmost eight bits, skipping index 0
-      // (note that rightmost index is 9-1)
-      sb.append(is8 + " ");
+      String bs = Integer.toBinaryString((b + 256) % 256);
+      // for some reason the above is required..
+      // now addeng leading zeros
+      while (bs.length() < 8) bs = "0" + bs;
+      sb.append(bs + " ");
     }
     String bits = sb.toString();
     return bits;

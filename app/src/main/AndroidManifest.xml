@@ -51,6 +51,22 @@
             android:name="nielsj.crypto.view.FormattingControl"
             android:exported="false">
         </activity>
+        <activity
+            android:name="nielsj.crypto.exercises.Exercises"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name="nielsj.crypto.exercises.CaesarCracker"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name="nielsj.crypto.exercises.AESCracker"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name="nielsj.crypto.exercises.SHA256Cracker"
+            android:exported="false">
+        </activity>
 
     </application>
 
