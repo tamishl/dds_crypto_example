@@ -42,12 +42,11 @@ public class SHA256Cracker extends AppCompatActivity {
 
   void crack() {
     String hashBeginning = hashBeginningEditText.getText().toString();
-    String hashGuess = "", hashValue = "";
-    boolean found = false;
+    String inputGuess = "", hashValue = "";
     long i = 0;
-    hashGuess = Long.toString(i);
-    hashValue = crypto.hash(hashGuess);
-    hashInputTextView.setText("hash input:\n" + hashGuess);
+    inputGuess = Long.toString(i);
+    hashValue = crypto.hash(inputGuess);
+    hashInputTextView.setText("hash input:\n" + inputGuess);
     hashValueTextView.setText("hash valuue:\n" + hashValue);
   }
 }

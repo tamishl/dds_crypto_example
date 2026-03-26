@@ -42,7 +42,7 @@ public class AESCracker extends AppCompatActivity {
     plaintextValueTextView = (TextView) findViewById(R.id.plaintextValue);
     crackButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
-        test();
+        crack();
       }
     });
     clearButton.setOnClickListener(new View.OnClickListener() {
@@ -53,29 +53,6 @@ public class AESCracker extends AppCompatActivity {
     });
   }
   void crack() {
-    AES crypto = new AES("ECB", "NoPadding");
-    String cipherText = cipherEditText.getText().toString();
-    String pt = "";
-    String keyGuess = "";
-    int b1, b2;
-    String hex1, hex2;
-    boolean found = false;
-    for (b1 = 0; (! found) && b1 < 255; b1++) {
-      hex1 = Hex.byteToHexPair(b1);
-      for (b2 = 0; (! found) && b2 < 255; b2++) {
-        hex2 = Hex.byteToHexPair(b2);
-        keyGuess = keyHex28Zeroes + hex1 + hex2;
-        pt = crypto.decrypt(cipherText, keyGuess);
-        if (pt.startsWith("Heil Hitler")) {
-          found = true;
-        } // end iff
-      } // end for
-    } // end for
-    keyValueTextView.setText(keyGuess);
-    plaintextValueTextView.setText(pt);
-  }
-
-  void test() {
     AES crypto = new AES("ECB", "NoPadding");
     String cipherText = cipherEditText.getText().toString();
     String pt = "";

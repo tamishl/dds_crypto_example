@@ -16,7 +16,7 @@ public class CaesarCracker extends AppCompatActivity {
   Button crackIButton, crackIIButton;
   EditText cipherEditTextI, cipherEditTextII;
   String ciphertextI = "HCLJHLZHYDLHAAHJRHAZPE",
-         ciphertextII = "NIRPNRFNEUBYQLBHEUBEFRF";
+          ciphertextII = "NIRPNRFNEUBYQLBHEUBEFRF";
 
 
   @Override
@@ -34,16 +34,12 @@ public class CaesarCracker extends AppCompatActivity {
       public void onClick(View v) {
         String ct = cipherEditTextI.getText().toString();
         decryptedTextView.setText("The ciphertext is " + ct);
-        int k = 0;
+        int k = 1;
         String key = String.valueOf(k);
+        caesar.setKey(key);
         decryptedTextView.append("\nThe current key is " + key);
-      }
-    });
-    crackIIButton = (Button) findViewById(R.id.crackIIButton);
-    crackIIButton.setOnClickListener(new View.OnClickListener() {
-      public void onClick(View v) {
-        String ct = cipherEditTextII.getText().toString();
-        decryptedTextView.setText("The ciphertext is " + ct);
+        String pt = caesar.decrypt(ct);
+        decryptedTextView.append("\nThe plaintext is " + pt);
       }
     });
   }
