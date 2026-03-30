@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.util.ArrayList;
+
 import nielsj.crypto.R;
 import nielsj.crypto.model.Caesar;
 
@@ -23,24 +26,38 @@ public class CaesarCracker extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.caesarcracker);
-    Caesar caesar = new Caesar();
-    cipherEditTextI = (EditText) findViewById(R.id.cipherEditTextI);
+
+
+    cipherEditTextI =  findViewById(R.id.cipherEditTextI);
+    cipherEditTextII = findViewById(R.id.cipherEditTextII);
+
     cipherEditTextI.setText(ciphertextI);
-    cipherEditTextII = (EditText) findViewById(R.id.cipherEditTextII);
     cipherEditTextII.setText(ciphertextII);
-    decryptedTextView = (TextView) findViewById(R.id.deryptedTextView);
-    crackIButton = (Button) findViewById(R.id.crackIButton);
-    crackIButton.setOnClickListener(new View.OnClickListener() {
+
+    // Attach EditText to button
+    crackIButton = findViewById(R.id.crackIButton);
+    crackIButton.setTag(cipherEditTextI);
+    crackIIButton = findViewById(R.id.crackIIButton);
+    crackIIButton.setTag(cipherEditTextII);
+
+    decryptedTextView = findViewById(R.id.decryptedTextView);
+
+    Caesar caesar = new Caesar();
+
+    View.OnClickListener crackListener = new View.OnClickListener() {
       public void onClick(View v) {
-        String ct = cipherEditTextI.getText().toString();
-        decryptedTextView.setText("The ciphertext is " + ct);
-        int k = 1;
-        String key = String.valueOf(k);
-        caesar.setKey(key);
-        decryptedTextView.append("\nThe current key is " + key);
-        String pt = caesar.decrypt(ct);
-        decryptedTextView.append("\nThe plaintext is " + pt);
+        EditText editText = (EditText) v.getTag();
+        String ct = editText.getText().toString();
+        decryptedTextView.setText("The ciphertext is one of these options:");
+        ArrayList<String> pts = caesar.crack(ct);
+
+        for (int i = 0; i < pts.size(); i++) {
+          decryptedTextView.append("\n"  + pts.get(i) + " (key=" + i + ")");
+        }
       }
-    });
+    };
+
+    crackIButton.setOnClickListener(crackListener);
+    crackIIButton.setOnClickListener(crackListener);
   }
 }

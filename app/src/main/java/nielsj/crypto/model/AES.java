@@ -84,6 +84,7 @@ public class AES {
   }
 
   // decrypt() is a wrapper just like encrypt()
+  // @param keyString is a String of hexes
   public String decrypt(String ct, String keyString) {
     String ciphertext = Util.stringToSingleLine(ct);
     byte[] cipherBytes = Hex.hexStringToByteArray(ciphertext);

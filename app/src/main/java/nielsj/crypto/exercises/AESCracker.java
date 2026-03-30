@@ -57,14 +57,29 @@ public class AESCracker extends AppCompatActivity {
     String cipherText = cipherEditText.getText().toString();
     String pt = "";
     String keyGuess = "";
-    int b1 = 0, b2 = 0;
     String hex1, hex2;
-    hex1 = Hex.byteToHexPair(b1);
-    hex2 = Hex.byteToHexPair(b2);
-    keyGuess = keyHex28Zeroes + hex1 + hex2;
-    pt = crypto.decrypt(cipherText, keyGuess);
-    keyValueTextView.setText(keyGuess);
-    plaintextValueTextView.setText(pt);
+    for (int i = 0; i <= 255; i++){
+      for (int j = 0; j <= 255; j++)
+      {
+        hex1 = Hex.byteToHexPair(i);
+        hex2 = Hex.byteToHexPair(j);
+        keyGuess = keyHex28Zeroes + hex1 + hex2;
+        pt = crypto.decrypt(cipherText, keyGuess);
+        if (pt.startsWith("Heil Hitler")){
+          keyValueTextView.setText(keyGuess);
+          plaintextValueTextView.setText(pt);
+          return;
+        }
+      }
+    }
+//    int b1 = 0, b2 = 1;
+//    String hex1, hex2;
+//    hex1 = Hex.byteToHexPair(b1);
+//    hex2 = Hex.byteToHexPair(b2);
+//    keyGuess = keyHex28Zeroes + hex1 + hex2;
+//    pt = crypto.decrypt(cipherText, keyGuess);
+//    keyValueTextView.setText(keyGuess);
+//    plaintextValueTextView.setText(pt);
   }
 }
 

@@ -12,7 +12,7 @@ import nielsj.crypto.control.*;
 import nielsj.crypto.view.FormattingControl;
 import nielsj.crypto.exercises.Exercises;
 
-// This is the top class/acticity
+// This is the top class/activity
 // It defines buttons for selecting symmetric encryption, etc.
 
 public class Crypto extends AppCompatActivity {
